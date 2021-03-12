@@ -1,0 +1,171 @@
+var quote = await fetch("https://aqua.pantsu.ga/cu.mp4");
+var info = {
+    title:'Pantsu Network',
+    quote: quote.body
+};
+
+var template = `<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@400;500;700&family=DotGothic16&family=Press+Start+2P&display=swap" rel="stylesheet">
+
+    <title>${info.title}</title>
+    <style>
+        html{
+            font-family: 'Dosis', sans-serif;
+            font-family: 'DotGothic16', sans-serif;
+            scroll-behavior: smooth;
+        }
+        body {
+            margin: 0 auto;
+            font-size: 2vh;
+            background: rgba(250,250,250,1);            
+            text-align: center;
+        }
+        
+        body > * {
+            z-index: 5;
+            margin-bottom: 5vh;
+        }
+
+        .bg {
+            visibility: visible;
+            width: 100vw;
+            height: 100vh;
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: 0;
+        }
+
+        .header {
+            font-weight: bold;
+            letter-spacing: .1em;
+        }
+
+        #subdomains {
+            letter-spacing: .02em;
+        }
+
+        .grid {
+            display: grid;
+            align-items: center;
+            align-content: center;
+            justify-content: center;
+            justify-items: center;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-column-gap: 5px;
+            grid-gap: 1rem;
+        }
+
+        .item {            
+            position:relative;
+            width: 15vw; 
+            height: 28vh;
+            min-width: 150px; 
+            min-height: 200px;     
+            max-width: 750px;
+            max-height: 1500px; 
+            color: white;
+        }
+        .item > * {z-index: 5; visibility: visible;}
+
+        .item:hover{
+            cursor: pointer;
+        }
+
+        .item > .dark {
+            z-index: 1;
+            position: absolute;  
+            left:-5;
+            top:-5; 
+            background-color: rgba(0, 0, 0, 0.5);
+            width: 100%;
+            height: 100%;     
+        }
+        .item > .name{font-weight: bolder;}        
+        .item > .description{text-shadow: rgba(0,0,0, 0);}
+        .item#aqua{border: 5px solid rgb(12, 138, 255, 1);background: url('/assets/img/aqua.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center;}
+        .item#aqua:hover{background: url('/assets/img/aqua.gif'); background-repeat: no-repeat; background-size: cover; background-position: center;}
+        .item#aqua:hover ~ .bg{background-color: rgb(12, 138, 255, 1) !important;}        
+        .item#wiz{border: 5px solid rgba(40, 0, 185, 1);background: url('/assets/img/wiz.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center;}
+        .item#wiz:hover{background: url('/assets/img/wiz.gif'); background-repeat: no-repeat; background-size: cover; background-position: center;}
+        .item#rias{border: 5px solid rgba(173, 0, 0, 1); background: url('/assets/img/rias.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center;}
+        .item#rias:hover{background: url('/assets/img/rias.gif'); background-repeat: no-repeat; background-size: cover; background-position: center;}
+        .item#akeno{border: 5px solid rgba(0, 1, 56, 1);background: url('/assets/img/akeno.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center;}
+        .item#akeno:hover{background: url('/assets/img/akeno.gif'); background-repeat: no-repeat; background-size: cover; background-position: center;}
+        .item:hover ~ #bg {
+            background: #EE0;
+        }        
+    </style>
+</head>
+<body>
+    
+    <div class="header">
+        <h1>Pantsu Network</h1>
+        <span>Hosteando besteiras em subdomínios baseados em waifus.</span>
+    </div>
+    <div id="subdomains">
+        <div class="grid">
+            <a href="https://aqua.pantsu.ga" title="Links diretos para arquivos">
+                <div id="aqua" class="item">
+                    <div class="dark">
+                        <h1 class="name">Aqua</h1>
+                        <span class="description">Links diretos para arquivos do Alekek</span>
+                    </div>
+                </div>
+            </a>
+            
+            <a href="https://wiz.pantsu.ga" title="Servidor Jellyfin do Tobson">
+                <div id="wiz" class="item">
+                    <div class="dark">
+                        <h1 class="name">Wiz</h1>
+                        <span class="description">Servidor Jellyfin do Tobson</span>
+                    </div>
+                </div>
+            </a>
+            
+            <a href="https://rias.pantsu.ga" title="Servidor Jellyfin do Alek">        
+                <div id="rias" class="item">
+                    <div class="dark">
+                        <h1 class="name">Rias</h1>
+                        <span class="description">Servidor Jellyfin do Alekek</span>
+                    </div>
+                </div>
+            </a>
+            
+            <a href="https://akeno.pantsu.ga" title="Listagem de arquivos NSFW">
+                <div id="akeno" class="item">
+                    <div class="dark">
+                        <h1 class="name">Akeno</h1>
+                        <span class="description">Arquivos NSFW</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <div class="quote">
+        <span>${info.quote.quote}</span>
+        <h5>${info.quote.character} from ${info.quote.anime}.</h5>
+    </div>
+    
+    <div id="bg" class="bg"></div>
+</body>
+</html>`;
+
+addEventListener('fetch', event => {
+    event.respondWith(handleRequest(event.request))
+  })
+  
+  /**
+   * Respond to the request
+   * @param {Request} request
+   */
+  async function handleRequest(request) {
+    return new Response(template, {status: 200})
+  }
